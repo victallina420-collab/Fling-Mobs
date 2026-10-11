@@ -1,0 +1,10 @@
+
+{
+  "resource_pack_name": "Fling Mobs Resource Pack",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "fling_wand": {
+      "textures": "textures/items/fling_wand"
+    }
+  }
+}
