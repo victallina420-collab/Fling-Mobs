@@ -1,0 +1,60 @@
+
+name: Build Fling Mobs Addon
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Package Fling Mobs Addon
+        run: |
+          set -e
+
+          mkdir -p dist
+
+          python3 - <<'PY'
+          import os
+          import zipfile
+
+          packs = [
+              "FlingMobs_BP",
+              "FlingMobs_RP",
+          ]
+
+          output = "dist/FlingMobs.mcaddon"
+
+          for pack in packs:
+              if not os.path.isdir(pack):
+                  raise SystemExit(
+                      f"Missing pack folder: {pack}. "
+                      "Update the folder name in the workflow."
+                  )
+
+              if not os.path.isfile(os.path.join(pack, "manifest.json")):
+                  raise SystemExit(f"Missing {pack}/manifest.json")
+
+          with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as addon:
+              for pack in packs:
+                  for root, dirs, files in os.walk(pack):
+                      dirs[:] = [d for d in dirs if d != "__pycache__"]
+                      for filename in files:
+                          path = os.path.join(root, filename)
+                          addon.write(path, path)
+
+          print(f"Created {output}")
+          PY
+
+      - name: Upload addon
+        uses: actions/upload-artifact@v4
+        with:
+          name: FlingMobs-MCAddon
+          path: dist/FlingMobs.mcaddon
