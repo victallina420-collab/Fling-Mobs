@@ -1,0 +1,35 @@
+
+{
+  "format_version": 2,
+  "header": {
+    "name": "Fling Mobs INSANE",
+    "description": "Launch mobs insanely far with the Fling Wand!",
+    "uuid": "a8c4f123-7b91-4d2e-9f65-123456789001",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "b9d5f234-8c12-4e3f-a076-234567890012",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "c6e7a345-9d23-4f40-b187-345678900123",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.0.0"
+    },
+    {
+      "uuid": "d7f8b456-ae34-4051-8298-456789001234",
+      "version": [1, 0, 0]
+    }
+  ]
+}
